@@ -7,8 +7,6 @@ type Props = {
   isAlltodosCompleted: boolean;
   createTodo: (title: string) => Promise<void>;
   setTempTodo: React.Dispatch<React.SetStateAction<Todo | null>>;
-  title: string;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
   inputRef: React.RefObject<HTMLInputElement>;
   toggleAllTodos: () => Promise<void>;
   todosLoading: boolean;
@@ -19,13 +17,12 @@ export const Header: React.FC<Props> = ({
   isAlltodosCompleted,
   createTodo,
   setTempTodo,
-  title,
-  setTitle,
   inputRef,
   toggleAllTodos,
   todosLoading,
   todosLength,
 }) => {
+  const [title, setTitle] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
@@ -42,6 +39,7 @@ export const Header: React.FC<Props> = ({
 
     try {
       await createTodo(currentTitle);
+      setTitle('');
     } catch (error) {
       setTempTodo(null);
     } finally {

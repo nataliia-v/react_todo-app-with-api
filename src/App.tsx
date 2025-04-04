@@ -18,7 +18,6 @@ export const App: React.FC = () => {
     FilterParams.ALL,
   );
   const [pendingTodoIds, setPendingTodoIds] = useState<Set<number>>(new Set());
-  const [title, setTitle] = useState<string>('');
   const createTodoInputRef = useRef<HTMLInputElement | null>(null);
 
   const isAllCompleted = todosLoading ? false : isAlltodosCompleted(todos);
@@ -219,10 +218,10 @@ export const App: React.FC = () => {
 
       setTodos(current => [...current, newTodo]);
       setTempTodo(null);
-      setTitle('');
-    } catch {
+    } catch (error) {
       setErrorMessage(TodoErrorMessages.UNABLE_TO_ADD);
       setTempTodo(null);
+      throw error;
     }
   };
 
@@ -252,8 +251,6 @@ export const App: React.FC = () => {
           isAlltodosCompleted={isAllCompleted}
           createTodo={createTodo}
           setTempTodo={setTempTodo}
-          title={title}
-          setTitle={setTitle}
           inputRef={createTodoInputRef}
           toggleAllTodos={toggleAllTodos}
           todosLoading={todosLoading}
