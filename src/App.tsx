@@ -64,6 +64,7 @@ export const App: React.FC = () => {
       createTodoInputRef.current?.focus();
     } catch (error) {
       setErrorMessage(TodoErrorMessages.UNABLE_TO_DELETE);
+      throw error;
     }
   };
 
