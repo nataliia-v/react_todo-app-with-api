@@ -13,7 +13,7 @@ export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [tempTodo, setTempTodo] = useState<Todo | null>(null);
   const [todosLoading, setTodosLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<TodoErrorMessages>(TodoErrorMessages.NONE)
   const [selectedFilterParam, setSelectedFilterParam] = useState<FilterParams>(
     FilterParams.ALL,
   );
@@ -231,7 +231,7 @@ export const App: React.FC = () => {
     }
 
     const timerId = window.setTimeout(() => {
-      setErrorMessage('');
+      setErrorMessage(TodoErrorMessages.NONE);
     }, 3000);
 
     return () => {
